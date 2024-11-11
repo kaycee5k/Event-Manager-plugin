@@ -1,0 +1,77 @@
+/* Styles for the entire events container */
+.upcoming-events-horizontal {
+    display: flex;
+    gap: 20px;
+    justify-content: space-around;
+}
+
+/* Styles for each individual event card */
+.event-card {
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+/* Title styling */
+.event-card h3 {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* Description styling */
+.event-card .description {
+    font-size: 0.85em;
+    line-height: 1.4;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+/* Location styling */
+.event-card .location {
+    font-size: 1em;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Container for date and countdown badges */
+.event-card .badge-container {
+    display: flex;
+    gap: 5px; /* Space between badges */
+    justify-content: start;
+    align-items: center;
+    margin-top: 5px;
+}
+
+/* Badge container styles */
+.badge {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #eee;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 0.9em;
+    color: #e74c3c;
+    text-align: center;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* Specific styling for date badge */
+.date-badge {
+    font-size: 0.8em;
+    text-align: left;
+    font-weight: 300;
+}
+
+/* Specific styling for countdown badge */
+.countdown-badge {
+    font-size: 0.8em;
+    text-align: left;
+    font-weight: 300;
+}
