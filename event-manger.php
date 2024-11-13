@@ -122,7 +122,7 @@ function wp_event_manager_display_upcoming_events($atts) {
         $output .= '<div class="event-card">';
         $output .= '<h3>' . get_the_title() . '</h3>';
         $output .= '<p class="description">' . esc_html($event_description) . '</p>';
-        $output .= '<p><strong>Location:</strong> ' . esc_html($event_location) . '</p>';
+        $output .= '<p class="location"><i class="fa fa-map-marker" aria-hidden="true"></i> ' . esc_html($event_location) . '</p>';
         $output .= '<div class="badge-container">';
         $output .= '<span class="badge date-badge">Date: ' . esc_html($event_date) . '</span>';
         $output .= '<span class="badge countdown-badge">Countdown: <span class="countdown" data-date="' . esc_attr($event_date) . '"></span></span>';

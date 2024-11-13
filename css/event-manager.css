@@ -1,41 +1,46 @@
 /* Styles for the entire events container */
 .upcoming-events-horizontal {
     display: flex;
-    gap: 20px;
-    justify-content: space-around;
+    gap: 5px;
+    /* justify-content: space-around; */
 }
 
 /* Styles for each individual event card */
 .event-card {
     border: 1px solid #ddd;
-    padding: 20px;
+    padding: 10px;
     border-radius: 8px;
-    width: 300px;
+    width: auto;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     font-family: Arial, sans-serif;
+    height: auto;
+    text-decoration: none;
+    text-transform: capitalize;
 }
 
 /* Title styling */
 .event-card h3 {
     font-size: 1.5em;
-    font-weight: bold;
     margin-bottom: 10px;
-    color: #333;
+    text-align: center;
+    color: #F63A32;
+    font-family: "Montserrat", Sans-serif;
+    font-weight: 600;
 }
 
 /* Description styling */
 .event-card .description {
-    font-size: 0.85em;
+    font-size: 1em;
     line-height: 1.4;
-    color: #666;
+    color: #222222;
     margin-bottom: 15px;
 }
 
 /* Location styling */
 .event-card .location {
-    font-size: 1em;
-    font-weight: bold;
-    color: #333;
+    font-size: 0.75em;
+    font-weight: 300;
+    color: #6b6b6b;
     margin-bottom: 15px;
 }
 
