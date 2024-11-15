@@ -1,8 +1,8 @@
 <?php
 /*
-Plugin Name: c
+Plugin Name: Event Manager
 Description: A plugin to manage and display events with dynamic countdown and auto-replacement of expired events.
-Version: 1.5
+Version: 1.8
 Author: Kaycee Onyia
 */
 
@@ -36,17 +36,28 @@ function wp_event_manager_enqueue_assets() {
         'wp-event-manager-style',
         plugin_dir_url(__FILE__) . 'css/event-manager.css',
         [],
-        '1.5'
+        '1.8'
     );
     wp_enqueue_script(
         'wp-event-manager-script',
         plugin_dir_url(__FILE__) . 'js/event-manager.js',
         ['jquery'],
-        '1.5',
+        '1.8',
         true
     );
 }
 add_action('wp_enqueue_scripts', 'wp_event_manager_enqueue_assets');
+
+// Enqueue FontAwesome for icons
+function wp_event_manager_enqueue_fontawesome() {
+    wp_enqueue_style(
+        'font-awesome',
+        'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css', 
+        [], 
+        '6.0.0'
+    );
+}
+add_action('wp_enqueue_scripts', 'wp_event_manager_enqueue_fontawesome');
 
 // Add meta boxes for event details
 function wp_event_manager_add_event_meta_boxes() {
@@ -67,7 +78,7 @@ function wp_event_manager_event_meta_box_callback($post) {
         <label for="event_location">Location:</label>
         <input type="text" id="event_location" name="event_location" value="<?php echo esc_attr($location); ?>" />
     </p>
-    <br>
+    <p>
         <label for="event_description">Description:</label>
         <textarea id="event_description" name="event_description"><?php echo esc_attr($description); ?></textarea>
     </p>
@@ -105,7 +116,7 @@ function wp_event_manager_display_upcoming_events($atts) {
             ]
         ]
     ];
-    
+
     $query = new WP_Query($args);
     if (!$query->have_posts()) {
         return '<p>No upcoming events.</p>';
@@ -119,13 +130,27 @@ function wp_event_manager_display_upcoming_events($atts) {
         $event_location = get_post_meta(get_the_ID(), '_event_location', true);
         $event_description = get_post_meta(get_the_ID(), '_event_description', true);
         
+        $date_diff = (new DateTime($event_date))->diff(new DateTime($today))->days;
+        $is_past = (new DateTime($event_date)) < new DateTime($today);
+        $is_today = (new DateTime($event_date))->format('Y-m-d') === $today;
+
         $output .= '<div class="event-card">';
         $output .= '<h3>' . get_the_title() . '</h3>';
         $output .= '<p class="description">' . esc_html($event_description) . '</p>';
         $output .= '<p class="location"><i class="fa fa-map-marker" aria-hidden="true"></i> ' . esc_html($event_location) . '</p>';
         $output .= '<div class="badge-container">';
         $output .= '<span class="badge date-badge">Date: ' . esc_html($event_date) . '</span>';
-        $output .= '<span class="badge countdown-badge">Countdown: <span class="countdown" data-date="' . esc_attr($event_date) . '"></span></span>';
+
+        if ($is_today) {
+            $output .= '<span class="badge countdown-badge">Ongoing Event</span>';
+        } elseif ($is_past) {
+            $output .= '<span class="badge countdown-badge">Event Has Passed</span>';
+        } else {
+            // Handle pluralization for countdown text
+            $countdown_text = $date_diff === 1 ? "1 day remaining" : "$date_diff days remaining";
+            $output .= '<span class="badge countdown-badge">Countdown: ' . esc_html($countdown_text) . '</span>';
+        }
+
         $output .= '</div>';
         $output .= '</div>';
     }

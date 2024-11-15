@@ -1,8 +1,9 @@
 /* Styles for the entire events container */
 .upcoming-events-horizontal {
-    display: flex;
-    gap: 5px;
-    /* justify-content: space-around; */
+    display: grid;
+    gap: 14px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    padding: 20px;
 }
 
 /* Styles for each individual event card */
@@ -13,9 +14,13 @@
     width: auto;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     font-family: Arial, sans-serif;
-    height: auto;
     text-decoration: none;
     text-transform: capitalize;
+    transition: transform 0.3s ease;
+}
+
+.event-card:hover {
+    transform: scale(1.05);
 }
 
 /* Title styling */
@@ -47,7 +52,8 @@
 /* Container for date and countdown badges */
 .event-card .badge-container {
     display: flex;
-    gap: 5px; /* Space between badges */
+    gap: 5px;
+    flex-wrap: nowrap;
     justify-content: start;
     align-items: center;
     margin-top: 5px;
@@ -56,7 +62,7 @@
 /* Badge container styles */
 .badge {
     display: inline-block;
-    padding: 10px 15px;
+    padding: 10px 10px;
     background-color: #eee;
     border-radius: 12px;
     font-weight: bold;
@@ -64,19 +70,36 @@
     color: #e74c3c;
     text-align: center;
     margin-top: 10px;
-    text-align: center;
 }
 
 /* Specific styling for date badge */
 .date-badge {
     font-size: 0.8em;
-    text-align: left;
     font-weight: 300;
 }
 
 /* Specific styling for countdown badge */
 .countdown-badge {
     font-size: 0.8em;
-    text-align: left;
     font-weight: 300;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .upcoming-events-horizontal {
+        grid-template-columns: 1fr; /* Stacks cards vertically on smaller screens */
+    }
+    
+    .event-card {
+        padding: 15px;
+    }
+    
+    .event-card h3 {
+        font-size: 1.3em;
+    }
+    
+    .badge {
+        padding: 8px 8px; /* Adjust badge padding for smaller screens */
+        font-size: 0.85em;
+    }
 }
